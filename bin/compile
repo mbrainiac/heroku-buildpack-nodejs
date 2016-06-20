@@ -131,6 +131,25 @@ build_dependencies() {
 header "Building dependencies"
 build_dependencies | output "$LOG_FILE"
 
+header "Installing node-sass"
+install_node_sass | output "$LOG_FILE"
+
+# Check and run heroku.js
+if [ -f $BUILD_DIR/heroku.js ]; then
+#  # get the env vars
+#  if [ -d "$ENV_DIR" ]; then
+#    status "Exporting config vars to environment"
+#    export_env_dir $ENV_DIR
+#  fi
+  header "heroku.js found"
+
+  # Install gulp locally
+  echo "running heroku postinstall"
+  node heroku.js 2>&1
+else
+  header "No heroku.js found"
+fi
+
 cache_build() {
   local cache_directories=$(get_cache_directories)
 

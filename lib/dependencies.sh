@@ -41,3 +41,7 @@ rebuild_node_modules() {
     echo "Skipping (no package.json)"
   fi
 }
+
+install_node_sass() {
+  npm install node-sass 2>&1
+}
